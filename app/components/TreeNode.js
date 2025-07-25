@@ -200,11 +200,11 @@ const TreeNode = ({ node, onNodeUpdate, onNodeDelete, onNodeCreate, onFileSelect
         onMouseEnter={() => setShowAddOptions(true)} 
         onMouseLeave={() => setShowAddOptions(false)}
       >
-        <div className="flex items-center">
-          <span className={`mr-2 w-4 h-4 ${isSelected ? 'text-blue-200' : 'text-gray-400'}`}>
+        <div className="flex items-center flex-1 min-w-0">
+          <span className={`mr-2 w-4 h-4 flex-shrink-0 ${isSelected ? 'text-blue-200' : 'text-gray-400'}`}>
             {node.isFolder && (isOpen ? <FaChevronDown /> : <FaChevronRight />)}
           </span>
-          <span className={`mr-2 w-4 h-4 ${isSelected ? 'text-blue-200' : 'text-blue-400'}`}>
+          <span className={`mr-2 w-4 h-4 flex-shrink-0 ${isSelected ? 'text-blue-200' : 'text-blue-400'}`}>
             {node.isFolder ? (isOpen ? <FaFolderOpen /> : <FaFolder />) : <FaFile />}
           </span>
           {isEditing ? (
@@ -216,11 +216,11 @@ const TreeNode = ({ node, onNodeUpdate, onNodeDelete, onNodeCreate, onFileSelect
               onKeyDown={handleKeyDown}
               onClick={(e) => e.stopPropagation()}
               autoFocus 
-              style={{ width: `${Math.max(newNodeName.length * 8 + 20, 80)}px`, maxWidth: '200px' }}
+              className="bg-gray-700 text-white border border-gray-600 rounded px-2 py-1 text-sm max-w-[200px]"
             />
           ) : (
-            <span className={`select-none truncate ${isSelected ? 'text-white font-medium' : 'text-gray-200'}`}>
-              {node.name}
+            <span className={`select-none truncate max-w-[200px] ${isSelected ? 'text-white font-medium' : 'text-gray-200'}`}>
+              {node.name.length > 25 ? `${node.name.substring(0, 25)}...` : node.name}
               {!node.isFolder && isSelected && (
                 <span className="ml-2 text-blue-200 text-xs">● Open</span>
               )}
@@ -228,7 +228,7 @@ const TreeNode = ({ node, onNodeUpdate, onNodeDelete, onNodeCreate, onFileSelect
           )}
         </div>
         {showAddOptions && (
-          <div className="flex items-center bg-gray-700 rounded-md p-1 shadow-lg border border-gray-600 z-[60] relative">
+          <div className="flex items-center bg-gray-700 rounded-md p-1 shadow-lg border border-gray-600 z-[60] relative flex-shrink-0">
             {node.isFolder && (
               <>
                 <button 
